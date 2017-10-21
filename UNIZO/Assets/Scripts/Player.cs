@@ -144,21 +144,26 @@ public class Player : Actor, Swimmable, IAnimatable, Jumper {
     protected override void FixedUpdate()
     {
         base.FixedUpdate();
-        if (leftButton && leftButton.isBeingPressed()){
-            walkToLeft();
-        }
-        if (rightButton && rightButton.isBeingPressed()){
-            walkToRight();
-        }
 
-        if (!leftButton.isBeingPressed() && !rightButton.isBeingPressed())
-            body.velocity = new Vector2(0f, body.velocity.y);
-        body.velocity *= GameWorld.singleton.TimeScale;
+        if (leftButton && rightButton){
+            if (leftButton.isBeingPressed())
+            {
+                walkToLeft();
+            }
+            if (rightButton.isBeingPressed())
+            {
+                walkToRight();
+            }
 
-        if (!grounded){
-            notifyBackgroundsAboutDirection(body.velocity);
+            if (!leftButton.isBeingPressed() && !rightButton.isBeingPressed())
+                body.velocity = new Vector2(0f, body.velocity.y);
+            body.velocity *= GameWorld.singleton.TimeScale;
+
+            if (!grounded)
+            {
+                notifyBackgroundsAboutDirection(body.velocity);
+            }
         }
- 
     }
 
     void Update(){
@@ -183,7 +188,8 @@ public class Player : Actor, Swimmable, IAnimatable, Jumper {
 
     public void OnStartWalking(){
         animate(PlayerMovementStatus.WALK, 0.5f, true);
-        myCompanion.walk(followPoint.position);
+        if(myCompanion)
+            myCompanion.walk(followPoint);
     }
 
     public void OnStopWalking(){
@@ -314,10 +320,15 @@ public class Player : Actor, Swimmable, IAnimatable, Jumper {
 
     public void onStartJump() {
         animate(PlayerMovementStatus.JUMP, 0.9f, false);
-        myCompanion.jump(250f);
+        if (myCompanion)
+            myCompanion.jump(250f);
     }
 
     public PlayerSaveData getCurrentSaveData(){
         return mySaveData;
+    }
+
+    public void setCompanion(Companion cp){
+        myCompanion = cp;
     }
 }

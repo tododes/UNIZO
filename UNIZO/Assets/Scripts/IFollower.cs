@@ -4,7 +4,6 @@ using UnityEngine;
 
 public interface IFollower {
 
-    void walk(Vector2 destination);
-    void walk(Vector3 destination);
+    void walk(Transform destination);
     void jump(float power);
 }

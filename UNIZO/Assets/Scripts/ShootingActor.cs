@@ -42,7 +42,8 @@ public class ShootingActor : Actor {
         base.Start();
         
         gameWorld = GameWorld.singleton;
-        objectPool = Level.singleton.getObjectPool();
+        if(Level.singleton)
+            objectPool = Level.singleton.getObjectPool();
         timeToShoot = true;
         for(int i = 0; i < maxBulletAmount; i++) {
             Bullet newObj = Instantiate<Bullet>(bullet);
