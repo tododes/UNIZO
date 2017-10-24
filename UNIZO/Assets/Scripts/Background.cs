@@ -7,10 +7,12 @@ public class Background : MonoBehaviour {
     [SerializeField] private int layer;
     [SerializeField] private Player featuredPlayer;
     [SerializeField] private float desiredMinimumYAxis;
+    private GameWorld world;
     //[SerializeField] private float desiredLandedPosition_Y;
 
 	void Start () {
         desiredMinimumYAxis = transform.position.y;
+        world = GameWorld.singleton;
         //char layerChar = name[name.Length - 1];
         //layer = (int)layerChar - '0';
         //featuredPlayer = Player.singleton;
@@ -28,6 +30,6 @@ public class Background : MonoBehaviour {
 
     public void parallax(Vector3 direction){
         float parallaxFactor = layer / 10f;
-        transform.Translate(direction * parallaxFactor * Time.deltaTime);
+        transform.Translate(direction * parallaxFactor * Time.deltaTime * world.TimeScale);
     }
 }

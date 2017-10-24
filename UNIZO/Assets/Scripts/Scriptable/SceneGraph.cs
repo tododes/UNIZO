@@ -67,14 +67,19 @@ public class SceneGraph : ScriptableObject {
         getCurrentSceneInTree(root, sceneName);
     }
 
-    public void ResetDFSStatus() { found = false; }
+    public void ResetDFSStatus() {
+        found = false;
+        for(int i = 0; i < allNodes.Count; i++){
+            allNodes[i].visited = false;
+        }
+    }
     public void getCurrentSceneInTree(SceneNode node, string nodeName){
-
-        if (node.name == nodeName){
+        if (node.name.CompareTo(nodeName) == 0){
             found = true;
             current = node;
+            return;
         }
-        else if (node.name != nodeName && !found){
+        else if (node.name.CompareTo(nodeName) != 0 && !found){
             node.visited = true;
             for (int i = 0; i < node.getChildCount(); i++){
                 SceneNode child = node.getChildAt(i);

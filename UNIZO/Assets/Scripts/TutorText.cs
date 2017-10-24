@@ -21,16 +21,16 @@ public class TutorText : MonoBehaviour {
 	}
 
     public void EnableTutorialText(string command, int delay){
-        Debug.Log("enable tutor text");
         if (sb.Length > 0)
             sb.Remove(0, sb.Length);
         sb.Append(command);
-        myText.text = sb.ToString();
+        
         StartCoroutine(EnableTutorialTextWithDelay(delay));
     }
 
     private IEnumerator EnableTutorialTextWithDelay(float delay){
         yield return new WaitForSeconds(delay);
+        myText.text = sb.ToString();
         myText.enabled = true;
     }
 

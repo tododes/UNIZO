@@ -23,7 +23,9 @@ public class Level : MonoBehaviour {
         objectPool = spawnObjectPool();
         pausePanel = GameObject.Find("Pause Panel").GetComponent<AreYouSurePanel>();
         missionAccomplishedPanel = GameObject.Find("Mission Accomplished Panel").GetComponent<MissionAccomplishedPanel>();
-        missionFailedPanel = GameObject.Find("Mission Failed Panel").GetComponent<MissionFailedPanel>();
+        GameObject failedPanelObject = GameObject.Find("Mission Failed Panel");
+        if (failedPanelObject)
+            missionFailedPanel = failedPanelObject.GetComponent<MissionFailedPanel>();
         for(int i = 0; i < levelInteractables.Count; i++){
             levelInteractables[i] = objectPool.registerObject<Interactable>(levelInteractables[i]);
         }
@@ -54,6 +56,7 @@ public class Level : MonoBehaviour {
 
     public void MissionFail(){
         gameWorld.pauseSystem();
-        missionFailedPanel.Trigger();
+        if(missionFailedPanel)
+            missionFailedPanel.Trigger();
     }
 }

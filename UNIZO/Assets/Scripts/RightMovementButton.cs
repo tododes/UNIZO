@@ -4,7 +4,6 @@ using UnityEngine;
 
 public class RightMovementButton : MovementButton {
 
-    [SerializeField]
     private Vector3 desiredScale;
 
     protected override void Start()
@@ -15,8 +14,8 @@ public class RightMovementButton : MovementButton {
 
     public override void onPressed(){
         playerToBeControlled.OnStartWalking();
-        if (playerToBeControlled.transform.localScale.x < 0f)
-        {
+        Debug.Log("On pressed");
+        if (playerToBeControlled.transform.localScale.x < 0f){
             desiredScale.x = -playerToBeControlled.transform.localScale.x;
             desiredScale.y = playerToBeControlled.transform.localScale.y;
             desiredScale.z = playerToBeControlled.transform.localScale.z;

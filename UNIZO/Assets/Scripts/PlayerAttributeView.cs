@@ -51,4 +51,8 @@ public class PlayerAttributeView : MonoBehaviour, PlayerObserver {
         goldText.text = coin.ToString();
         crystalText.text = crystal.ToString();
     }
+
+    public void update(Vector2 position){
+
+    }
 }

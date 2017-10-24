@@ -40,7 +40,14 @@ public class AreYouSurePanel : MonoBehaviour {
         {
             rect.localScale = rect.localScale + IncrementFactor * Time.deltaTime;
         }
-           
+
+        if (Index == 1 && rect.localScale.x >= desiredSize)
+            onTriggerFinished();
+    }
+
+    protected virtual void onTriggerFinished()
+    {
+
     }
 
     public virtual void No()

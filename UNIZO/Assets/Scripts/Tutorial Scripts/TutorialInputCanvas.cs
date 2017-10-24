@@ -21,4 +21,6 @@ public class TutorialInputCanvas : MonoBehaviour {
     }
 	
     public bool isInputTutorialFinished() { return totalPoint >= 3; }
+
+    public void ResetInputTutorial() { totalPoint = 0; }
 }

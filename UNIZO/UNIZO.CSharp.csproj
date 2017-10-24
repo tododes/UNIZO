@@ -104,6 +104,8 @@
     <Compile Include="Assets\Scripts\Checkpoint.cs" />
     <Compile Include="Assets\Scripts\CheckpointText.cs" />
     <Compile Include="Assets\Scripts\Clock.cs" />
+    <Compile Include="Assets\Scripts\ClueArrow.cs" />
+    <Compile Include="Assets\Scripts\ClueableObject.cs" />
     <Compile Include="Assets\Scripts\Coin.cs" />
     <Compile Include="Assets\Scripts\Companion.cs" />
     <Compile Include="Assets\Scripts\CompanionData.cs" />
@@ -116,6 +118,7 @@
     <Compile Include="Assets\Scripts\Companions\SpreadShootCompanion.cs" />
     <Compile Include="Assets\Scripts\Companions\TripleShootCompanion.cs" />
     <Compile Include="Assets\Scripts\ContinueText.cs" />
+    <Compile Include="Assets\Scripts\DamagePoint.cs" />
     <Compile Include="Assets\Scripts\DamageablePlatform.cs" />
     <Compile Include="Assets\Scripts\DesperShootCompanion.cs" />
     <Compile Include="Assets\Scripts\Door.cs" />
@@ -166,6 +169,7 @@
     <Compile Include="Assets\Scripts\PlayerAttributeView.cs" />
     <Compile Include="Assets\Scripts\PlayerSaveData.cs" />
     <Compile Include="Assets\Scripts\PlayerSlotView.cs" />
+    <Compile Include="Assets\Scripts\PlayerViewRect.cs" />
     <Compile Include="Assets\Scripts\Reward.cs" />
     <Compile Include="Assets\Scripts\RewardClaimPanel.cs" />
     <Compile Include="Assets\Scripts\RightMovementButton.cs" />
@@ -192,6 +196,7 @@
     <Compile Include="Assets\Scripts\SpeedPlatform.cs" />
     <Compile Include="Assets\Scripts\Spike.cs" />
     <Compile Include="Assets\Scripts\SpriteAnimationController.cs" />
+    <Compile Include="Assets\Scripts\StartGameButton.cs" />
     <Compile Include="Assets\Scripts\SureBuyPanel.cs" />
     <Compile Include="Assets\Scripts\Swimmable.cs" />
     <Compile Include="Assets\Scripts\TrampolinePlatform.cs" />
@@ -199,6 +204,7 @@
     <Compile Include="Assets\Scripts\TutorText.cs" />
     <Compile Include="Assets\Scripts\Tutorial Scripts\TutorialController.cs" />
     <Compile Include="Assets\Scripts\Tutorial Scripts\TutorialInputCanvas.cs" />
+    <Compile Include="Assets\Scripts\TutorialPanel.cs" />
     <Compile Include="Assets\Scripts\VillageMenuController.cs" />
     <Compile Include="Assets\Scripts\WalkButton.cs" />
     <Compile Include="Assets\Scripts\Water.cs" />

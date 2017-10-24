@@ -10,19 +10,19 @@ public class Companion : ShootingActor, IFollower
     private bool timeToWalk;
     private Transform destinationToReach;
     private Vector3 walkDirection;
+    private GameWorld world;
 
     public void jump(float power){
         body.AddForce(Vector3.up * power);
     }
 
+    protected override void Start(){
+        base.Start();
+        world = GameWorld.singleton;
+    }
+
     public void walk(Transform destination){
         destinationToReach = destination;
-        //this.destination = destination;
-        //this.destination = new Vector3(destination.x, transform.position.y, transform.position.z);
-        
-        //Debug.Log("Destination : " + this.destination);
-        //Debug.Log("Current : " + transform.position);
-        //timeToWalk = true;
     }
 
     void Update(){
@@ -32,22 +32,10 @@ public class Companion : ShootingActor, IFollower
             walkDirection = destinationToReach.position - transform.position;
             if (isInTheWrongOrientation())
                 TurnAround();
-            if (distance > FOLLOW_THRESHOLD)
-            {
-                transform.Translate(walkDirection * 5f * Time.deltaTime);
+            if (distance > FOLLOW_THRESHOLD){
+                transform.Translate(walkDirection * 5f * Time.deltaTime * world.TimeScale);
             }
         }
-    
-        //if (timeToWalk){
-        //    transform.Translate(walkDirection * 5f * Time.deltaTime);
-        //    float distance = Vector3.Distance(transform.position, destination);
-        //    Debug.Log(distance);
-        //    if (distance <= FOLLOW_THRESHOLD){
-        //        Debug.Log("Destination : " + this.destination);
-        //        Debug.Log("Current : " + transform.position);
-        //        timeToWalk = false;
-        //    }
-        //}
     }
 
     private bool isInTheWrongOrientation(){

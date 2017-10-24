@@ -5,7 +5,7 @@ using UnityEngine;
 public class MissionAccomplishedPanel : AreYouSurePanel {
 
     public override void Yes(string name){
-        InterSceneImage.singleton.FinishScene(name);
+        SceneNavigation.singleton.ProceedToNextScene(0);
         Index = 0;
     }
 

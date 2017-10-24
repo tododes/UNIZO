@@ -19,7 +19,7 @@ public class SceneNavigation : MonoBehaviour {
 	// Use this for initialization
 	void Start () {
         //tree.ResetAllNodeParent();
-        //tree.Initialize();
+        tree.Initialize();
         tree.DFS(Application.loadedLevelName);
         isi = InterSceneImage.singleton;
         //tree.ResetTree();
@@ -38,7 +38,8 @@ public class SceneNavigation : MonoBehaviour {
     }
 
     public void ProceedToNextScene(int sceneIndex){
-        saveGameContent();
+        if(saveGameContent != null)
+            saveGameContent();
         isi.FinishScene(tree.getCurrentNode().getChildAt(sceneIndex).sceneName);
         tree.switchToChild(sceneIndex);
     }

@@ -10,7 +10,6 @@ public class Player : Actor, Swimmable, IAnimatable, Jumper {
     private int myCrystal;
 
     public static Player singleton { get; private set; }
-    private Rigidbody2D body;
     public bool readyToAccomplishTheMission { get; private set; }
 
     [SerializeField]
@@ -132,12 +131,13 @@ public class Player : Actor, Swimmable, IAnimatable, Jumper {
         sceneBackgrounds = new List<Background>(FindObjectsOfType<Background>());
 
         registerObserver(GameObject.Find("Player Attribute UI").GetComponent<PlayerAttributeView>());
+        registerObserver(GameObject.Find("Player View Rect").GetComponent<PlayerViewRect>());
+       
         notifyObservers();
         notifyObserversAboutUnderwaterStatus();
         mySpriteController = GetComponent<SpriteAnimationController>();
         animate(PlayerMovementStatus.IDLE, 0.5f, true);
         followPoint = transform.FindChild("Follow Point");
-        //position2D = new Vector2(transform.position.x, transform.position.y);
     }
 
     // Update is called once per frame
@@ -159,8 +159,7 @@ public class Player : Actor, Swimmable, IAnimatable, Jumper {
                 body.velocity = new Vector2(0f, body.velocity.y);
             body.velocity *= GameWorld.singleton.TimeScale;
 
-            if (!grounded)
-            {
+            if (!grounded){
                 notifyBackgroundsAboutDirection(body.velocity);
             }
         }
@@ -180,10 +179,19 @@ public class Player : Actor, Swimmable, IAnimatable, Jumper {
         }
     }
 
+    protected override void LateUpdate(){
+        base.LateUpdate();
+        
+        for(int i = 0; i < observers.Count; i++){
+            observers[i].update(position2D);
+        }
+    }
+
     public override void OnActorDeath(){
         if(lastVisitedCheckpoint)
             GameStorage.Save<Vector3>(lastVisitedCheckpoint.transform.position, Application.persistentDataPath + SaveKey.LASTPLAYERCHECKPOINT_KEY);
-        Level.singleton.MissionFail();
+        if(Level.singleton)
+            Level.singleton.MissionFail();
     }
 
     public void OnStartWalking(){
@@ -198,7 +206,8 @@ public class Player : Actor, Swimmable, IAnimatable, Jumper {
 
     public void walkToLeft()
     {
-        body.velocity = new Vector2(Vector2.left.x * speed, body.velocity.y);
+        body.velocity = new Vector2(Vector2.left.x * speed, body.velocity.y) ;
+        Debug.Log("Left");
         notifyBackgroundsAboutDirection(body.velocity);
        
     }
@@ -212,9 +221,9 @@ public class Player : Actor, Swimmable, IAnimatable, Jumper {
 
     public void jump()
     {
-        if (JumpPower > 0){
-            
+        if (JumpPower > 0){          
             body.AddForce(Vector2.up * 450f);
+            Debug.Log("Jump");
             JumpPower--;
            
         }
@@ -222,7 +231,6 @@ public class Player : Actor, Swimmable, IAnimatable, Jumper {
 
     void OnCollisionEnter2D(Collision2D coll)
     {
-        //Debug.Log(coll.collider.name);
         if (coll.collider.name.Contains("Floor"))
         {
             if (!grounded)
@@ -238,7 +246,6 @@ public class Player : Actor, Swimmable, IAnimatable, Jumper {
     void OnTriggerEnter2D(Collider2D coll)
     {
         Interactable i = coll.GetComponent<Interactable>();
-        Debug.Log("enter");
         if (i){
             i.OnInteract(this);
         }
@@ -256,7 +263,6 @@ public class Player : Actor, Swimmable, IAnimatable, Jumper {
     void OnTriggerExit2D(Collider2D coll)
     {
         Interactable i = coll.GetComponent<Interactable>();
-        Debug.Log("exit");
         if (i)
         {
             i.OnStopInteract(this);

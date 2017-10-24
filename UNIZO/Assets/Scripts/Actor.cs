@@ -11,8 +11,7 @@ public class Actor : MonoBehaviour {
     [SerializeField] protected Rigidbody2D body;
 
     protected virtual void Start(){
-        position2D.x = transform.position.x;
-        position2D.y = transform.position.y;
+        position2D = new Vector2(transform.position.x, transform.position.y);
         body = GetComponent<Rigidbody2D>();
     }
 
@@ -22,7 +21,7 @@ public class Actor : MonoBehaviour {
         animationSpeed = GameWorld.singleton.TimeScale;
     }
 
-    protected void LateUpdate(){
+    protected virtual void LateUpdate(){
         if (health <= 0)
             OnActorDeath();
     }
@@ -46,4 +45,6 @@ public class Actor : MonoBehaviour {
     public virtual void OnActorDeath(){
         gameObject.SetActive(false);
     }
+
+    public bool isDead() { return health <= 0; }
 }

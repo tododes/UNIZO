@@ -8,6 +8,7 @@ public class MenuController : MonoBehaviour {
     [SerializeField] protected SettingsObject settingsObject;
     [SerializeField] protected ObjectPool objectPool;
     [SerializeField] protected List<MenuButton> menuButtons;
+    [SerializeField] protected bool playerShouldBeTutored;
 
     // Use this for initialization
 
@@ -28,7 +29,7 @@ public class MenuController : MonoBehaviour {
         }
         else{
             currentSaveData = new PlayerSaveData(Application.persistentDataPath + SaveKey.PLAYERDATA_KEY);
-            Debug.Log("Player not exist");
+            playerShouldBeTutored = true;
         }
         
         SceneNavigation.singleton.saveGameContent += SaveGameData;
@@ -45,5 +46,9 @@ public class MenuController : MonoBehaviour {
 
     public virtual void SaveGameData(){
         GameStorage.Save<PlayerSaveData>(currentSaveData, Application.persistentDataPath + SaveKey.PLAYERDATA_KEY);
+    }
+
+    public bool shouldPlayerBeTutored(){
+        return playerShouldBeTutored;
     }
 }
